@@ -1,0 +1,188 @@
+/* Reset Básico e Configurações Globais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #121212; /* Fundo escuro */
+    color: #e0e0e0; /* Texto claro */
+    line-height: 1.6;
+}
+
+/* Estilo para o background de Partículas */
+#particles-js {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1; /* Coloca o canvas no fundo */
+}
+
+/* Para garantir que o conteúdo fique na frente do background */
+header, main, footer {
+    position: relative;
+    z-index: 1;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Cabeçalho */
+.header {
+    background-color: rgba(31, 31, 31, 0.8); /* Fundo com leve transparência */
+    padding: 60px 0;
+    text-align: center;
+    border-bottom: 2px solid #00bfff; /* Um azul vibrante para destaque */
+}
+
+.header h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.header p {
+    font-size: 1.2rem;
+    color: #00bfff;
+}
+
+/* Seções */
+.section {
+    padding: 60px 0;
+    border-bottom: 1px solid #333;
+    /* Adicionando fundo para melhor legibilidade sobre as partículas */
+    background-color: rgba(18, 18, 18, 0.8);
+    margin-bottom: 20px;
+    border-radius: 8px;
+}
+
+.section h2 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.section h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: #00bfff;
+    margin: 10px auto 0;
+}
+
+/* Grid de Habilidades */
+.skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+.skill-card {
+    background: #1f1f1f;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.skill-card:hover {
+    transform: translateY(-5px);
+    background-color: #00bfff;
+    color: #121212;
+}
+
+/* Grid de Projetos/Experiência */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.project-card {
+    background: #1f1f1f;
+    padding: 25px;
+    border-radius: 8px;
+    border-left: 4px solid transparent;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-card:hover {
+    transform: translateY(-10px);
+    border-left-color: #00bfff;
+}
+
+.project-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+    color: #00bfff;
+}
+
+.experience-date {
+    font-size: 0.9rem;
+    color: #aaa;
+    margin-bottom: 15px;
+    font-style: italic;
+}
+
+/* Contato */
+#contato {
+    text-align: center;
+}
+
+.social-links {
+    margin-top: 20px;
+}
+
+.social-links a {
+    text-decoration: none;
+    color: #e0e0e0;
+    margin: 0 15px;
+    font-size: 1.1rem;
+    padding: 5px 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+    background-color: #00bfff;
+    color: #121212;
+    border-color: #00bfff;
+}
+
+/* Rodapé */
+.footer {
+    text-align: center;
+    padding: 30px 0;
+    background-color: rgba(31, 31, 31, 0.8);
+    margin-top: 40px;
+}
+
+/* Estilo para a mensagem do Konami Code */
+.konami-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #00bfff;
+    color: #121212;
+    padding: 20px 40px;
+    font-size: 2rem;
+    font-weight: bold;
+    border-radius: 10px;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    pointer-events: none; /* Para não interferir com cliques */
+}
