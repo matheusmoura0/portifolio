@@ -37,28 +37,39 @@ header, main, footer {
 /* Cabeçalho */
 .header {
     background-color: rgba(31, 31, 31, 0.8); /* Fundo com leve transparência */
-    padding: 60px 0;
-    text-align: center;
+    padding: 40px 0;
     border-bottom: 2px solid #00bfff; /* Um azul vibrante para destaque */
 }
 
-.header h1 {
-    font-size: 3rem;
-    margin-bottom: 10px;
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
-.header p {
+.info-pessoal {
+    text-align: left;
+}
+
+.info-pessoal h1 {
+    font-size: 2.5rem;
+    margin-bottom: 5px;
+}
+
+.info-pessoal p {
     font-size: 1.2rem;
     color: #00bfff;
 }
 
 /* Seções */
 .section {
-    padding: 60px 0;
+    padding: 60px 20px;
     border-bottom: 1px solid #333;
     /* Adicionando fundo para melhor legibilidade sobre as partículas */
     background-color: rgba(18, 18, 18, 0.8);
-    margin-bottom: 20px;
+    margin: 20px 0;
     border-radius: 8px;
 }
 
@@ -166,7 +177,7 @@ header, main, footer {
     text-align: center;
     padding: 30px 0;
     background-color: rgba(31, 31, 31, 0.8);
-    margin-top: 40px;
+    margin-top: 20px;
 }
 
 /* Estilo para a mensagem do Konami Code */
@@ -185,4 +196,43 @@ header, main, footer {
     opacity: 0;
     transition: opacity 0.5s ease-in-out;
     pointer-events: none; /* Para não interferir com cliques */
+}
+
+/* Estilos para o Switch de Idioma */
+.language-switcher {
+    display: flex;
+    gap: 5px;
+    border: 1px solid #00bfff;
+    border-radius: 20px;
+    padding: 5px;
+    background-color: #1f1f1f;
+}
+
+.language-switcher button {
+    background: transparent;
+    border: none;
+    color: #e0e0e0;
+    padding: 5px 15px;
+    cursor: pointer;
+    border-radius: 15px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.language-switcher button.active {
+    background-color: #00bfff;
+    color: #121212;
+}
+
+/* Ajuste para telas pequenas */
+@media (max-width: 600px) {
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    .info-pessoal {
+        text-align: center;
+        margin-bottom: 20px;
+    }
 }
