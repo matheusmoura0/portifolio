@@ -33,10 +33,12 @@ const translations = {
         'sobreTexto': 'Desenvolvedor Full-Stack com sólida experiência em Ruby on Rails e grande interesse em tecnologias front-end modernas como React e Node.js. Busco unir a robustez do back-end com o dinamismo do front-end para construir soluções completas e de alta qualidade. Sou fluente em inglês (nível C1).',
         'habilidadesTitulo': 'Tecnologias',
         'projetosTitulo': 'Projetos',
+        // --- Descrições dos Projetos Atualizadas ---
         'projeto1Desc': 'Aplicação web para pesquisar filmes, adicionar aos favoritos e compartilhar a lista com um link exclusivo.',
         'projeto2Desc': 'Gerenciador de ordens de serviço, clientes e colaboradores, construído com React, Node.js e MaterialUI.',
         'projeto3Desc': 'Uma API simples de produtos desenvolvida com Go (Golang) e containerizada com Docker.',
         'projetoLink': 'Ver no GitHub',
+        // --- Fim das Descrições ---
         'experienciaTitulo': 'Experiência e Formação',
         'exp1Titulo': 'Desenvolvedor Full Stack na Humanoide',
         'exp1Descricao': 'Atuação em projetos com Ruby on Rails, incluindo desenvolvimento Full Stack com Slim e criação de APIs focadas em back-end, garantindo código limpo e funcionalidades eficientes.',
@@ -129,6 +131,9 @@ function initCarousel() {
     updateNavButtons();
 }
 
+/* ================================== */
+/* 4. Inicialização do particles.js
+/* ================================== */
 function initParticles() {
     if (typeof particlesJS !== 'undefined') {
         particlesJS('particles-js', {
