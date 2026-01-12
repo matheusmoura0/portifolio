@@ -1,176 +1,166 @@
-/* ================================== */
-/* 1. Objeto de Traduções (ATUALIZADO)
-/* ================================== */
-const translations = {
-    'en': {
-        'tituloProfissao': 'Full Stack Developer',
-        'sobreTitulo': 'About Me',
-        'sobreTexto': 'Full-Stack Developer with solid experience in Ruby on Rails and a strong interest in modern front-end technologies like React and Node.js. I aim to combine back-end robustness with front-end dynamism to build complete, high-quality solutions. I am fluent in English (C1 level).',
-        'habilidadesTitulo': 'Technologies',
-        'projetosTitulo': 'Projects',
-        // --- Descrições dos Projetos Atualizadas ---
-        'projeto1Desc': 'A web application to search for movies, add them to a favorites list, and share that list via a unique link.',
-        'projeto2Desc': 'A manager for service orders, clients, and collaborators, built with React, Node.js, and MaterialUI.',
-        'projeto3Desc': 'A simple product API developed with Go (Golang) and containerized with Docker.',
-        'projetoLink': 'View on GitHub',
-        // --- Fim das Descrições ---
-        'experienciaTitulo': 'Experience & Education',
-        'exp1Titulo': 'Full Stack Developer at Humanoide',
-        'exp1Descricao': 'Worked on projects with Ruby on Rails, including Full Stack development with Slim and creating back-end focused APIs, ensuring clean code and efficient functionalities.',
-        'exp2Titulo': 'Fullstack Training at Trybe',
-        'exp2Descricao': 'Over 1,500 hours of training in front-end, back-end, computer science, agile methodologies, and soft skills through practical projects.',
-        'exp3Titulo': 'Advanced Course Fullcycle 3.0',
-        'exp3Data': 'In progress',
-        'exp3Descricao': 'Deepening knowledge in software architecture, microservices, messaging, DevOps, and CI/CD for high-performance development.',
-        'contatoTitulo': 'Contact',
-        'contatoSubtitulo': "Let's talk! You can find me below:",
-        'contatoEmail': 'Email',
-        'footerTexto': '© 2025 Matheus Moura de Oliveira. All rights reserved.'
-    },
-    'pt': {
-        'tituloProfissao': 'Desenvolvedor Full Stack',
-        'sobreTitulo': 'Sobre Mim',
-        'sobreTexto': 'Desenvolvedor Full-Stack com sólida experiência em Ruby on Rails e grande interesse em tecnologias front-end modernas como React e Node.js. Busco unir a robustez do back-end com o dinamismo do front-end para construir soluções completas e de alta qualidade. Sou fluente em inglês (nível C1).',
-        'habilidadesTitulo': 'Tecnologias',
-        'projetosTitulo': 'Projetos',
-        // --- Descrições dos Projetos Atualizadas ---
-        'projeto1Desc': 'Aplicação web para pesquisar filmes, adicionar aos favoritos e compartilhar a lista com um link exclusivo.',
-        'projeto2Desc': 'Gerenciador de ordens de serviço, clientes e colaboradores, construído com React, Node.js e MaterialUI.',
-        'projeto3Desc': 'Uma API simples de produtos desenvolvida com Go (Golang) e containerizada com Docker.',
-        'projetoLink': 'Ver no GitHub',
-        // --- Fim das Descrições ---
-        'experienciaTitulo': 'Experiência e Formação',
-        'exp1Titulo': 'Desenvolvedor Full Stack na Humanoide',
-        'exp1Descricao': 'Atuação em projetos com Ruby on Rails, incluindo desenvolvimento Full Stack com Slim e criação de APIs focadas em back-end, garantindo código limpo e funcionalidades eficientes.',
-        'exp2Titulo': 'Formação Fullstack na Trybe',
-        'exp2Descricao': 'Mais de 1.500 horas de formação em front-end, back-end, ciência da computação, metodologias ágeis e soft skills através de projetos práticos.',
-        'exp3Titulo': 'Curso Avançado Fullcycle 3.0',
-        'exp3Data': 'Em andamento',
-        'exp3Descricao': 'Aprofundamento em arquitetura de software, microsserviços, mensageria, DevOps e CI/CD para desenvolvimento de alta performance.',
-        'contatoTitulo': 'Contato',
-        'contatoSubtitulo': 'Vamos conversar! Você pode me encontrar abaixo:',
-        'contatoEmail': 'Email',
-        'footerTexto': '© 2025 Matheus Moura de Oliveira. Todos os direitos reservados.'
-    }
-};
-
-/* ================================== */
-/* 2. Lógica de Tradução
-/* ================================== */
-function setLanguage(lang) {
-    document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
-    
-    document.querySelectorAll('[data-key]').forEach(element => {
-        const key = element.getAttribute('data-key');
-        if (translations[lang] && translations[lang][key]) {
-            element.textContent = translations[lang][key];
-        }
-    });
-
-    // Atualiza classes ativas nos botões
-    document.getElementById('lang-pt').classList.toggle('active', lang === 'pt');
-    document.getElementById('lang-en').classList.toggle('active', lang === 'en');
-}
-
-/* ================================== */
-/* 3. Lógica do Carrossel
-/* ================================== */
-function initCarousel() {
-    const track = document.querySelector('.carousel-track');
-    // Previne erro se o carrossel não existir na página
-    if (!track) return; 
-
-    const slides = Array.from(track.children);
-    const nextButton = document.getElementById('nextButton');
-    const prevButton = document.getElementById('prevButton');
-
-    if (slides.length === 0) return; // Não faz nada se não houver slides
-
-    // Recalcula a largura do slide
-    const slideWidth = slides[0].getBoundingClientRect().width;
-
-    // Organiza slides horizontalmente
-    slides.forEach((slide, index) => {
-        slide.style.left = slideWidth * index + 'px';
-    });
-
-    let currentIndex = 0;
-
-    const moveToSlide = (targetIndex) => {
-        // Recalcula a largura do slide ANTES de mover, para o caso de redimensionamento da janela
-        const currentSlideWidth = slides[0].getBoundingClientRect().width;
-        track.style.transform = 'translateX(-' + currentSlideWidth * targetIndex + 'px)';
-        currentIndex = targetIndex;
-        updateNavButtons();
-    };
-
-    const updateNavButtons = () => {
-        prevButton.classList.toggle('is-hidden', currentIndex === 0);
-        nextButton.classList.toggle('is-hidden', currentIndex === slides.length - 1);
-    };
-
-    // Event Listeners dos botões
-    nextButton.addEventListener('click', e => {
-        if (currentIndex < slides.length - 1) {
-            moveToSlide(currentIndex + 1);
-        }
-    });
-
-    prevButton.addEventListener('click', e => {
-        if (currentIndex > 0) {
-            moveToSlide(currentIndex - 1);
-        }
-    });
-
-    // Adiciona um listener para reajustar o carrossel se a janela mudar de tamanho
-    window.addEventListener('resize', () => {
-        moveToSlide(currentIndex);
-    });
-
-    // Inicializa botões
-    updateNavButtons();
-}
-
-/* ================================== */
-/* 4. Inicialização do particles.js
-/* ================================== */
-function initParticles() {
-    if (typeof particlesJS !== 'undefined') {
+document.addEventListener('DOMContentLoaded', () => {
+    // --- Particles Config ---
+    const initParticles = (isDark) => {
+        const color = isDark ? '#ffffff' : '#1e293b'; // White particles on dark, Slate on light
+        const opacity = isDark ? 0.1 : 0.2; // Slightly more visible on light
+        
         particlesJS('particles-js', {
             "particles": {
-                "number": {"value": 80, "density": {"enable": true, "value_area": 800}},
-                "color": {"value": "#ffffff"},
-                "shape": {"type": "circle", "stroke": {"width": 0, "color": "#000000"}, "polygon": {"nb_sides": 5}},
-                "opacity": {"value": 0.5, "random": false, "anim": {"enable": false, "speed": 1, "opacity_min": 0.1, "sync": false}},
-                "size": {"value": 3, "random": true, "anim": {"enable": false, "speed": 40, "size_min": 0.1, "sync": false}},
-                "line_linked": {"enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.4, "width": 1},
-                "move": {"enable": true, "speed": 2, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false, "attract": {"enable": false, "rotateX": 600, "rotateY": 1200}}
+                "number": { "value": 60, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": color },
+                "shape": { "type": "circle" },
+                "opacity": { "value": opacity, "random": false },
+                "size": { "value": 3, "random": true },
+                "line_linked": { "enable": true, "distance": 150, "color": color, "opacity": opacity, "width": 1 },
+                "move": { "enable": true, "speed": 2, "out_mode": "out" }
             },
             "interactivity": {
                 "detect_on": "canvas",
-                "events": {"onhover": {"enable": true, "mode": "repulse"}, "onclick": {"enable": true, "mode": "push"}, "resize": true},
-                "modes": {"grab": {"distance": 400, "line_linked": {"opacity": 1}}, "bubble": {"distance": 400, "size": 40, "duration": 2, "opacity": 8, "speed": 3}, "repulse": {"distance": 200, "duration": 0.4}, "push": {"particles_nb": 4}, "remove": {"particles_nb": 2}}
+                "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" } },
+                "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 1 } } }
             },
             "retina_detect": true
         });
+    };
+
+    // --- Theme Switcher Logic ---
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const themeIcon = themeToggleBtn.querySelector('.icon');
+    
+    // Check saved theme or system preference
+    const savedTheme = localStorage.getItem('theme');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const isDarkMode = savedTheme === 'dark' || (!savedTheme && systemPrefersDark);
+    
+    if (isDarkMode) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        themeIcon.textContent = '☀️';
     }
-}
-
-/* ================================== */
-/* 5. Event Listener Principal
-/* ================================== */
-document.addEventListener('DOMContentLoaded', () => {
     
-    // Inicializa Carrossel
-    initCarousel();
-    
-    // Inicializa Partículas
-    initParticles();
+    // Initialize particles based on initial theme
+    initParticles(document.documentElement.getAttribute('data-theme') === 'dark');
 
-    // Configura Eventos dos Botões de Idioma
-    document.getElementById('lang-pt').addEventListener('click', () => setLanguage('pt'));
-    document.getElementById('lang-en').addEventListener('click', () => setLanguage('en'));
+    themeToggleBtn.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        let newTheme;
+        
+        if (currentTheme === 'dark') {
+            newTheme = 'light';
+            themeIcon.textContent = '🌙';
+        } else {
+            newTheme = 'dark';
+            themeIcon.textContent = '☀️';
+        }
+        
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        
+        // Refresh particles with new theme colors
+        initParticles(newTheme === 'dark');
+    });
 
-    // Define o idioma inicial (Português, baseado no HTML)
-    setLanguage('pt');
+    // --- Language Switcher Logic ---
+    const translations = {
+        pt: {
+            menuSobre: "Sobre",
+            menuHabilidades: "Skills",
+            menuProjetos: "Projetos",
+            menuContato: "Contato",
+            heroSaudacao: "Olá, eu sou",
+            tituloProfissao: "Desenvolvedor Full Stack",
+            heroDesc: "Transformando ideias em experiências digitais robustas e modernas.",
+            heroBtnProjetos: "Ver Projetos",
+            heroBtnContato: "Contato",
+            sobreTitulo: "Sobre Mim",
+            sobreTexto: "Desenvolvedor Full-Stack com sólida experiência em Ruby on Rails e grande interesse em tecnologias front-end modernas como React e Node.js. Busco unir a robustez do back-end com o dinamismo do front-end para construir soluções completas e de alta qualidade. Sou fluente em inglês (nível C1).",
+            habilidadesTitulo: "Tecnologias",
+            projetosTitulo: "Projetos em Destaque",
+            projeto1Desc: "Aplicação web para pesquisar filmes, adicionar aos favoritos e compartilhar a lista com um link exclusivo.",
+            projeto2Desc: "Gerenciador de ordens de serviço, clientes e colaboradores, construído com React, Node.js e MaterialUI.",
+            projeto3Desc: "Uma API simples de produtos desenvolvida com Go (Golang) e containerizada com Docker.",
+            experienciaTitulo: "Experiência e Formação",
+            exp1Titulo: "Desenvolvedor Full Stack na Humanoide",
+            exp1Descricao: "Atuação em projetos com Ruby on Rails, incluindo desenvolvimento Full Stack com Slim e criação de APIs focadas em back-end.",
+            exp2Titulo: "Formação Fullstack na Trybe",
+            exp2Descricao: "Mais de 1.500 horas de formação em front-end, back-end, ciência da computação e metodologias ágeis.",
+            exp3Titulo: "Curso Avançado Fullcycle 3.0",
+            exp3Data: "Em andamento",
+            exp3Descricao: "Aprofundamento em arquitetura de software, microsserviços, mensageria, DevOps e CI/CD.",
+            contatoTitulo: "Vamos Trabalhar Juntos?",
+            contatoSubtitulo: "Estou sempre aberto a novos desafios e parcerias.",
+            contatoEmail: "Email"
+        },
+        en: {
+            menuSobre: "About",
+            menuHabilidades: "Skills",
+            menuProjetos: "Projects",
+            menuContato: "Contact",
+            heroSaudacao: "Hello, I am",
+            tituloProfissao: "Full Stack Developer",
+            heroDesc: "Transforming ideas into robust and modern digital experiences.",
+            heroBtnProjetos: "View Projects",
+            heroBtnContato: "Contact",
+            sobreTitulo: "About Me",
+            sobreTexto: "Full-Stack Developer with solid experience in Ruby on Rails and great interest in modern front-end technologies like React and Node.js. I seek to combine back-end robustness with front-end dynamism to build complete, high-quality solutions. Fluent in English (C1 level).",
+            habilidadesTitulo: "Technologies",
+            projetosTitulo: "Featured Projects",
+            projeto1Desc: "Web application to search movies, add to favorites, and share the list with a unique link.",
+            projeto2Desc: "Service order, client, and employee manager built with React, Node.js, and MaterialUI.",
+            projeto3Desc: "A simple product API developed with Go (Golang) and containerized with Docker.",
+            experienciaTitulo: "Experience & Education",
+            exp1Titulo: "Full Stack Developer at Humanoide",
+            exp1Descricao: "Working on Ruby on Rails projects, including Full Stack development with Slim and creating back-end focused APIs.",
+            exp2Titulo: "Fullstack Formation at Trybe",
+            exp2Descricao: "Over 1,500 hours of training in front-end, back-end, computer science, and agile methodologies.",
+            exp3Titulo: "Advanced Fullcycle 3.0 Course",
+            exp3Data: "In Progress",
+            exp3Descricao: "Deep diving into software architecture, microservices, messaging, DevOps, and CI/CD.",
+            contatoTitulo: "Let's Work Together?",
+            contatoSubtitulo: "I am always open to new challenges and partnerships.",
+            contatoEmail: "Email"
+        }
+    };
+
+    const langBtns = document.querySelectorAll('.lang-btn');
+    const elementsToTranslate = document.querySelectorAll('[data-key]');
+
+    langBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Toggle active class
+            langBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // Get selected language
+            const lang = btn.id === 'lang-pt' ? 'pt' : 'en';
+
+            // Update text content
+            elementsToTranslate.forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (translations[lang] && translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+            });
+        });
+    });
+
+    // --- Smooth Scrolling for Anchor Links ---
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            
+            if (targetElement) {
+                // Account for fixed header offset
+                const headerOffset = 80;
+                const elementPosition = targetElement.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth"
+                });
+            }
+        });
+    });
 });
